@@ -1,12 +1,11 @@
 package com.codeoftheweb.salvo;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static java.util.stream.Collectors.toList;
 
@@ -21,13 +20,11 @@ public class SalvoController {
     @RequestMapping("/games")
     public List<Object> getGamesId() {
         return
-
          gameRepository
                 .findAll()
                 .stream()
                 .map(game -> makeGameDTO(game))
                 .collect(toList());
-
     }
 
     private Map<String, Object> makeGameDTO(Game game) {
@@ -53,4 +50,20 @@ public class SalvoController {
         dto.put("player_email", player.getUserName());
         return dto;
     }
+    @Autowired
+    private GamePlayerRepository gamePlayerRepository;
+
+    @RequestMapping("/game_view/{id}")
+    public Map<String, Object> findGamePlayerID (@PathVariable Long id) {
+        GamePlayer gamePlayer = gamePlayerRepository.findOne(id);
+
+        Map<String, Object> objectMap = new HashMap<>();
+        objectMap.put("games", makeGameDTO(gamePlayer.getGame()));
+        return objectMap ;
+        
+
+    }
+
 }
+
+

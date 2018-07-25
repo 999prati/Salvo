@@ -38,10 +38,12 @@ public class Game {
     public void setStartDate(Date startDate) {
 
         this.startDate = startDate;
+        Date newDate = Date.from(startDate.toInstant().plusSeconds(36000));
     }
 
     public Game() {
         this.startDate = new Date();
+//        Date newDate = Date.from(startDate.toInstant().plusSeconds(3600));
     }
 
     public Set<GamePlayer> getGameplayers() {

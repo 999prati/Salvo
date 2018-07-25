@@ -46,6 +46,7 @@ var app = new Vue({
                    var playerTwo = app.games[i].gamePlayers[1].player.player_email;
                } else {
                   var playerTwo = "JOIN"
+                  
                }
                var object = {
                    emailOne : playerOne,

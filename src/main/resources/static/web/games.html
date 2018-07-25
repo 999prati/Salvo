@@ -8,11 +8,13 @@
 <div id="app">
 
 
-<div v-for = "game in allGames">
-<ol>
-    <li>{{game.date}} {{game.emailOne}} {{game.emailTwo}}</li>
-</ol>
-</div>
+
+
+    <ol >
+        <li v-for = "game in allGames">{{game.date}}    {{game.emailOne}}  {{game.emailTwo}}</li>
+    </ol>
+
+
 </div>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="games.js"></script>
