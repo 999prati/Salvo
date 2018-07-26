@@ -12,10 +12,8 @@ public class Ship {
     private long id;
 
     private  String type;
-
-
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="player_id")
+    @JoinColumn(name="gameplayer_id")
     private GamePlayer gameplayer;
 
     @ElementCollection

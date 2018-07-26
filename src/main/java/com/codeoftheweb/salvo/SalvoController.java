@@ -17,6 +17,9 @@ public class SalvoController {
     @Autowired
     private GameRepository gameRepository;
 
+    @Autowired
+    private GamePlayerRepository gamePlayerRepository;
+
     @RequestMapping("/games")
     public List<Object> getGamesId() {
         return
@@ -26,6 +29,22 @@ public class SalvoController {
                 .map(game -> makeGameDTO(game))
                 .collect(toList());
     }
+
+
+    @RequestMapping("/game_view/{id}")
+    public Map<String, Object> findGamePlayerID (@PathVariable Long id) {
+        GamePlayer gamePlayer = gamePlayerRepository.findOne(id);
+
+        Map<String, Object> objectMap = new HashMap<>();
+        objectMap.put("games", makeGameDTO(gamePlayer.getGame()));
+        objectMap.put("ships", gamePlayer.getShips().stream()
+        .map(ship -> makeShipDTO(ship))
+        .collect(toList()));
+        return objectMap ;
+
+    }
+
+
 
     private Map<String, Object> makeGameDTO(Game game) {
         Map<String, Object> dto = new LinkedHashMap<>();
@@ -47,23 +66,18 @@ public class SalvoController {
     private Map<String, Object>makePlayerDTO(Player player) {
         Map<String, Object> dto = new LinkedHashMap<String, Object>();
         dto.put("playerId", player.getId());
-        dto.put("player_email", player.getUserName());
+        dto.put("player_email",(player.getUserName()));
         return dto;
     }
-    @Autowired
-    private GamePlayerRepository gamePlayerRepository;
 
-    @RequestMapping("/game_view/{id}")
-    public Map<String, Object> findGamePlayerID (@PathVariable Long id) {
-        GamePlayer gamePlayer = gamePlayerRepository.findOne(id);
 
-        Map<String, Object> objectMap = new HashMap<>();
-        objectMap.put("games", makeGameDTO(gamePlayer.getGame()));
-        return objectMap ;
-        
+    private Map<String, Object> makeShipDTO(Ship ship){
+        Map<String, Object> dto = new LinkedHashMap<>();
+        dto.put("ships", ship.getType());
+        dto.put("locations", ship.getLocations());
+        return dto;
 
     }
-
 }
 
 

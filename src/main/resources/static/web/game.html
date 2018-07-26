@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Ship Locations!</title>
+    <link rel="stylesheet" href="game.css">
+</head>
+
+<body>
+    <div id="app">
+       {{message}}
+        <table>
+
+            <tr>
+                <th></th>
+                <th v-for="n in 10">
+                    {{n}}
+                </th>
+            </tr>
+
+            <tr v-for="n in 10">
+                <td>{{String.fromCharCode(64+n)}}</td>
+                <td v-for="n in 10"></td>
+            </tr>
+
+        </table>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="game.js"></script>
+</body>
+
+</html>
