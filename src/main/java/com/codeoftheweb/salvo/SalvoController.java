@@ -20,6 +20,9 @@ public class SalvoController {
     @Autowired
     private GamePlayerRepository gamePlayerRepository;
 
+    @Autowired
+    private SalvoRepository salvoRepository;
+
     @RequestMapping("/games")
     public List<Object> getGamesId() {
         return
@@ -40,6 +43,11 @@ public class SalvoController {
         objectMap.put("ships", gamePlayer.getShips().stream()
         .map(ship -> makeShipDTO(ship))
         .collect(toList()));
+
+        objectMap.put("salvo", gamePlayer.getSalvoes().stream()
+                .map(salvo -> makeSalvoDTO(salvo))
+                .collect(toList()));
+
         return objectMap ;
 
     }
@@ -71,13 +79,21 @@ public class SalvoController {
     }
 
 
-    private Map<String, Object> makeShipDTO(Ship ship){
+    private Map<String, Object> makeShipDTO(Ship ship) {
         Map<String, Object> dto = new LinkedHashMap<>();
         dto.put("ships", ship.getType());
         dto.put("locations", ship.getLocations());
         return dto;
 
     }
+        private Map<String, Object> makeSalvoDTO(Salvo salvo){
+            Map<String, Object> dto = new LinkedHashMap<>();
+            dto.put("turn", salvo.getTurn_number());
+            dto.put("player" , salvo.getGameplayer().getId());
+            dto.put("locations", salvo.getLocations());
+            return dto;
+        }
+
 }
 
 

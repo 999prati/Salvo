@@ -23,7 +23,7 @@ public class SalvoApplication {
 	public CommandLineRunner initData(PlayerRepository playerRepository,
 									  GameRepository gameRepository,
 									  GamePlayerRepository gamePlayerRepository,
-									  ShipRepository shipRepository) {
+									  ShipRepository shipRepository , SalvoRepository salvoRepository) {
 		return (args) -> {
 
 			Player player1 = new Player("j.bauer@ctu.gov ");
@@ -65,7 +65,7 @@ public class SalvoApplication {
 			GamePlayer gamePlayer6 = new GamePlayer(game3, player4);
 			GamePlayer gamePlayer7 = new GamePlayer(game4, player1);
 			GamePlayer gamePlayer8 = new GamePlayer(game4, player2);
-			GamePlayer gamePlayer9 = new GamePlayer(game5, player2);
+			GamePlayer gamePlayer9 = new GamePlayer(game5, player4);
 			GamePlayer gamePlayer10 = new GamePlayer(game5, player1);
 			GamePlayer gamePlayer11 = new GamePlayer(game6, player3);
 			GamePlayer gamePlayer12 = new GamePlayer(game6, player3);
@@ -175,6 +175,35 @@ public class SalvoApplication {
 			shipRepository.save(ship25);
 			shipRepository.save(ship26);
 			shipRepository.save(ship27);
+
+
+			Salvo salvo1 = new Salvo("1",gamePlayer1,locations1);
+			Salvo salvo2 = new Salvo("2",gamePlayer1,locations2);
+			Salvo salvo3 = new Salvo("1",gamePlayer2,locations4);
+			Salvo salvo4 = new Salvo("2",gamePlayer2,locations12);
+			Salvo salvo5 = new Salvo("1",gamePlayer5,locations3);
+			Salvo salvo6 = new Salvo("2",gamePlayer5,locations5);
+			Salvo salvo7 = new Salvo("1",gamePlayer8,locations3);
+			Salvo salvo8 = new Salvo("2",gamePlayer8,locations2);
+			Salvo salvo9 = new Salvo("1",gamePlayer9,locations2);
+			Salvo salvo10 = new Salvo("2",gamePlayer9,locations6);
+			Salvo salvo11= new Salvo("3",gamePlayer9,locations6);
+
+
+
+            salvoRepository.save(salvo1);
+			salvoRepository.save(salvo2);
+			salvoRepository.save(salvo3);
+			salvoRepository.save(salvo4);
+			salvoRepository.save(salvo5);
+			salvoRepository.save(salvo6);
+			salvoRepository.save(salvo7);
+			salvoRepository.save(salvo8);
+			salvoRepository.save(salvo9);
+			salvoRepository.save(salvo10);
+			salvoRepository.save(salvo11);
+
+
 
 		};
 	}
