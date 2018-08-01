@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 
@@ -37,21 +38,34 @@ public class SalvoController {
     @RequestMapping("/game_view/{id}")
     public Map<String, Object> findGamePlayerID (@PathVariable Long id) {
         GamePlayer gamePlayer = gamePlayerRepository.findOne(id);
+        GamePlayer otherPlayer = getOtherPlayer(gamePlayer);
 
         Map<String, Object> objectMap = new HashMap<>();
         objectMap.put("games", makeGameDTO(gamePlayer.getGame()));
         objectMap.put("ships", gamePlayer.getShips().stream()
-        .map(ship -> makeShipDTO(ship))
-        .collect(toList()));
+                .map(ship -> makeShipDTO(ship))
+                .collect(toList()));
 
         objectMap.put("salvo", gamePlayer.getSalvoes().stream()
                 .map(salvo -> makeSalvoDTO(salvo))
                 .collect(toList()));
 
-        return objectMap ;
-
+        objectMap.put("OtherSalvo", otherPlayer.getSalvoes().stream()
+                .map(salvo -> makeSalvoDTO(salvo))
+                .collect(toList()));
+        return objectMap;
     }
 
+    public GamePlayer getOtherPlayer(GamePlayer gamePlayer){
+        List<GamePlayer> gamePlayersList = new ArrayList<>();
+        Set<GamePlayer> gamePlayerSet = gamePlayer.getGame().getGameplayers();
+        for (GamePlayer gp : gamePlayerSet) {
+            if (gp != gamePlayer) {
+                gamePlayersList.add(gp);
+            }
+        }
+        return gamePlayersList.get(0);
+    }
 
 
     private Map<String, Object> makeGameDTO(Game game) {
@@ -93,7 +107,6 @@ public class SalvoController {
             dto.put("locations", salvo.getLocations());
             return dto;
         }
-
 }
 
 

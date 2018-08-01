@@ -1,18 +1,37 @@
-td,th{
+td,
+th {
     border: solid blue 1px;
     height: 30px;
-    width: 30px; 
+    width: 30px;
 }
 
-.location{
+.location {
     background: green;
 }
-.location1{
+
+.location1 {
     background: blue;
 }
 
-#flex{
+.location2 {
+    background: yellow;
+    background-image: url(Style/salvo.png);
+    background-size: contain;
+}
+
+#flex {
     display: flex;
     flex-flow: row;
-    justify-content:space-around;
+    justify-content: space-around;
+}
+
+.TurnNumber {
+    background: red;
+    color: aqua;
+}
+
+.colorHit {
+    background-color: darkred;
+    background-image: url(Style/hitPhoto.jpg);
+    background-size: contain;
 }
