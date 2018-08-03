@@ -7,6 +7,8 @@ th {
 
 .location {
     background: green;
+    background-image: url(Style/salvo.png);
+    background-size: contain;
 }
 
 .location1 {
@@ -15,8 +17,9 @@ th {
 
 .location2 {
     background: yellow;
-    background-image: url(Style/salvo.png);
+    background-image: url(Style/miss.png);
     background-size: contain;
+    
 }
 
 #flex {

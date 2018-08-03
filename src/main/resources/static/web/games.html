@@ -3,16 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <title>Salvo!!</title>
+    <link rel="stylesheet" href="games.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
 <div id="app">
 
+{{message}}
 
-
-
-    <ol >
-        <li v-for = "game in allGames">{{game.date}}    {{game.emailOne}}  {{game.emailTwo}}</li>
-    </ol>
+<table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th >Name</th>
+      <th >Total </th>
+      <th >Won</th>
+      <th >Lost</th>
+      <th>Tied</th>                   
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="player in main">
+                            <td>{{player.player}}</td>
+                            <td>{{player.total}}</td>
+                            <td>{{player.win}}</td>
+                            <td>{{player.lose}}</td>
+                            <td>{{player.tie}}</td>
+                        </tr>
+                    </tbody>
+                </table>
 
 
 </div>

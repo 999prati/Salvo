@@ -18,6 +18,9 @@ public class Player {
     @OneToMany(mappedBy="player", fetch=FetchType.EAGER)
     Set<GamePlayer> gameplayers;
 
+    @OneToMany(mappedBy="player", fetch=FetchType.EAGER)
+    Set<Score> scores;
+
     public Player() { }
 
     public Player(String userName) {
@@ -52,6 +55,19 @@ public class Player {
     public void setGameplayers(Set<GamePlayer> gameplayers) {
         this.gameplayers = gameplayers;
     }
+
+    public Set<Score> getScores() {
+        return scores;
+    }
+
+    public void setScores(Set<Score> scores) {
+        this.scores = scores;
+    }
+
+    public Score getScore(Game game) {
+        return scores.stream().filter(s -> s.getGame() == game).findFirst().orElse(null);
+    }
+
 }
 
 

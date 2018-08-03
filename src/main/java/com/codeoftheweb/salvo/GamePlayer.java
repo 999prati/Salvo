@@ -69,13 +69,20 @@ public class GamePlayer {
     public Set<Ship> getShips() {
         return ships;
     }
+
     public Set<Salvo> getSalvoes() {
         return salvoes;
     }
+
+//    public Set<Score> getScores(){return  Scores();
+
+
 
     public void setShips(Set<Ship> ships) {
         this.ships = ships;
     }
 
-
+    public Score getScore () {
+        return player.getScore(game);
+    }
 }

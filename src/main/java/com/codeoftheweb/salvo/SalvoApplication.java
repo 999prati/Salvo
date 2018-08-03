@@ -23,7 +23,8 @@ public class SalvoApplication {
 	public CommandLineRunner initData(PlayerRepository playerRepository,
 									  GameRepository gameRepository,
 									  GamePlayerRepository gamePlayerRepository,
-									  ShipRepository shipRepository , SalvoRepository salvoRepository) {
+									  ShipRepository shipRepository , SalvoRepository salvoRepository,
+									  ScoreRepository scoreRepository) {
 		return (args) -> {
 
 			Player player1 = new Player("j.bauer@ctu.gov ");
@@ -224,6 +225,23 @@ public class SalvoApplication {
 			salvoRepository.save(salvo22);
 
 
+			Score score1 = new Score(game1, player1, 1.0);
+			Score score2 = new Score(game1, player2, 0.0);
+			Score score3 = new Score(game2, player1, 0.5);
+			Score score4 = new Score(game2, player2, 0.5);
+			Score score5 = new Score(game3, player2, 1.0);
+			Score score6 = new Score(game3, player4, 0.0);
+			Score score7 = new Score(game4, player2, 0.5);
+			Score score8 = new Score(game4, player1, 0.5);
+
+			scoreRepository.save(score1);
+			scoreRepository.save(score2);
+			scoreRepository.save(score3);
+			scoreRepository.save(score4);
+			scoreRepository.save(score5);
+			scoreRepository.save(score6);
+			scoreRepository.save(score7);
+			scoreRepository.save(score8);
 
 		};
 	}

@@ -43,7 +43,7 @@ public class Game {
 
     public Game() {
         this.startDate = new Date();
-//        Date newDate = Date.from(startDate.toInstant().plusSeconds(3600));
+
     }
 
     public Set<GamePlayer> getGameplayers() {
