@@ -2,3 +2,19 @@ table{
  border: solid blue 1px;
 }
 
+#inputEmail{
+    width:30%;
+}
+
+#inputPassword{
+     width:30%;
+    margin-top:1%;
+}
+
+#leaderBoard{
+    text-align: center;
+}
+
+.form-signin{
+  margin-top: auto;   
+}

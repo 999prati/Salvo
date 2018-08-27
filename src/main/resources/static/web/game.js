@@ -15,7 +15,6 @@ var app = new Vue({
     },
 
     methods: {
-
         dataServer: function (id) {
             fetch("/api/game_view/" + id, {
                     method: "GET",
@@ -76,27 +75,26 @@ var app = new Vue({
         },
 
         findTheOtherSalvo: function () {
-            
+
             console.log(this.shipLocations);
-            
+
             for (var i = 0; i < this.main.OtherSalvo.length; i++) {
                 for (var j = 0; j < this.main.OtherSalvo[i].locations.length; j++) {
 
                     let loc = this.main.OtherSalvo[i].locations[j];
                     let cell = document.getElementById(loc);
-                    
-                    console.log(loc);
-                    
-                    
-                    if(this.shipLocations.includes(loc)){
-                        
-                        cell.setAttribute("class", "colorHit");
-                    }
-                    else{
 
-                    cell.setAttribute("class", "location2");
-                    cell.innerHTML = this.main.OtherSalvo[i].turn;
-                        
+                    console.log(loc);
+
+
+                    if (this.shipLocations.includes(loc)) {
+
+                        cell.setAttribute("class", "colorHit");
+                    } else {
+
+                        cell.setAttribute("class", "location2");
+                        cell.innerHTML = this.main.OtherSalvo[i].turn;
+
                     }
                 }
             }

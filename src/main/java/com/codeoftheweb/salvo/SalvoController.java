@@ -1,9 +1,13 @@
 package com.codeoftheweb.salvo;
 
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.method.P;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.*;
+import sun.security.util.Password;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -31,7 +35,47 @@ public class SalvoController {
     @Autowired
     private PlayerRepository playerRepository;
 
+
+
     @RequestMapping("/games")
+    private Map<String, Object> AO(Authentication authentication) {
+        Map<String, Object> dto = new LinkedHashMap<>();
+        if (authentication != null) {
+            dto.put("player", makePlayerDTO(playerRepository.findByUserName(authentication.getName())));
+            dto.put("game", gameRepository
+                    .findAll()
+                    .stream()
+                    .map(game -> makeGameDTO(game))
+                    .collect(toList()));
+        }
+            else
+            {
+                dto.put("game", gameRepository
+                        .findAll()
+                        .stream()
+                        .map(game -> makeGameDTO(game))
+                        .collect(toList()));
+            }
+            return dto;
+        }
+
+    @RequestMapping(path = "/players", method = RequestMethod.POST)
+    public ResponseEntity<Object> getNewPlayer(@RequestParam String userName , String password) {
+
+        if (userName.isEmpty()) {
+            return new ResponseEntity<>("No name given", HttpStatus.FORBIDDEN);
+        }
+
+        Player player = playerRepository.findByUserName(userName);
+        if (player != null) {
+            return new ResponseEntity<>("Name already used", HttpStatus.CONFLICT);
+        } else {
+            playerRepository.save(new Player(userName, password));
+            return new ResponseEntity<>("Named added", HttpStatus.CREATED);
+        }
+    }
+
+
     public List<Object> getGamesId() {
         return
          gameRepository
@@ -96,6 +140,8 @@ public class SalvoController {
         return list;
     }
 
+
+
     public GamePlayer getOtherPlayer(GamePlayer gamePlayer){
         List<GamePlayer> gamePlayersList = new ArrayList<>();
         Set<GamePlayer> gamePlayerSet = gamePlayer.getGame().getGameplayers();
@@ -156,6 +202,7 @@ public class SalvoController {
                dto.put("scores",player.getScore());
                return dto;
     }
+
+
+
 }
-
-

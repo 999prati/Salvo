@@ -1,6 +1,8 @@
 package com.codeoftheweb.salvo;
 
 
+import sun.security.util.Password;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
@@ -14,6 +16,7 @@ public class Player {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private long id;
     private String userName;
+    private String password;
 
     @OneToMany(mappedBy="player", fetch=FetchType.EAGER)
     Set<GamePlayer> gameplayers;
@@ -23,8 +26,9 @@ public class Player {
 
     public Player() { }
 
-    public Player(String userName) {
+    public Player(String userName ,String password) {
         this.userName = userName;
+        this.password = password;
     }
 
     public void addGamePlayer(GamePlayer gameplayer) {
@@ -68,6 +72,13 @@ public class Player {
         return scores.stream().filter(s -> s.getGame() == game).findFirst().orElse(null);
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }
 
 

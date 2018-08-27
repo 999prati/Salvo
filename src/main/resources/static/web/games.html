@@ -1,40 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
 <head>
     <meta charset="UTF-8">
     <title>Salvo!!</title>
     <link rel="stylesheet" href="games.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
+
 <body>
-<div id="app">
+    <div id="app">
+        
+        
+        
+        <div class="alert" v-if='alertDiv'>User or Password is wrong or already in use</div>
+         
+        <div class="form-signin" v-if='logged == false'>
 
-{{message}}
+            <label for="inputEmail" class="sr-only">Email address</label>
+            
+            <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required="" autofocus="">
+            
+            <label for="inputPassword" class="sr-only">Password</label>
+            
+            <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
 
-<table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th >Name</th>
-      <th >Total </th>
-      <th >Won</th>
-      <th >Lost</th>
-      <th>Tied</th>                   
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="player in main">
-                            <td>{{player.player}}</td>
-                            <td>{{player.total}}</td>
-                            <td>{{player.win}}</td>
-                            <td>{{player.lose}}</td>
-                            <td>{{player.tie}}</td>
-                        </tr>
-                    </tbody>
-                </table>
+            <button type="button" class="btn btn-success" @click="logIn">Log in</button>
+
+            <button type="button" class="btn btn-success" @click="signUp">Sign up</button>
+
+        </div>
+
+        <div v-if='logged'>
+            <div class="logged">logged in</div>
+            <button type="button" class="btn btn-success" @click="logOut">Log out</button>
+        </div>
+
+       
+     
+
+         <h1 id="leaderBoard">{{message}}</h1>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Total </th>
+                    <th>Won</th>
+                    <th>Lost</th>
+                    <th>Tied</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="player in main">
+                    <td>{{player.player}}</td>
+                    <td>{{player.total}}</td>
+                    <td>{{player.win}}</td>
+                    <td>{{player.lose}}</td>
+                    <td>{{player.tie}}</td>
+                </tr>
+            </tbody>
+        </table>
 
 
-</div>
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-<script src="games.js"></script>
+        
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-2.2.0.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="games.js"></script>
 </body>
 </html>
