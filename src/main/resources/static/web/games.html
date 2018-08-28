@@ -7,13 +7,15 @@
     <title>Salvo!!</title>
     <link rel="stylesheet" href="games.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+   <link href="https://fonts.googleapis.com/css?family=Ewert" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Yeon+Sung" rel="stylesheet">
 </head>
 
-<body>
+<body id="bodyColor">
     <div id="app">
+          <h1 id="leaderBoard2">{{message}}</h1>
         
-        
-        
+        <div id="logIn">
         <div class="alert" v-if='alertDiv'>User or Password is wrong or already in use</div>
          
         <div class="form-signin" v-if='logged == false'>
@@ -25,11 +27,12 @@
             <label for="inputPassword" class="sr-only">Password</label>
             
             <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
+            
+           
+            <button id="logIN" type="button" class="btn btn-success" @click="logIn">Log in</button>
 
-            <button type="button" class="btn btn-success" @click="logIn">Log in</button>
-
-            <button type="button" class="btn btn-success" @click="signUp">Sign up</button>
-
+            <button id="logOUT" type="button" class="btn btn-success" @click="signUp">Sign up</button>
+           
         </div>
 
         <div v-if='logged'>
@@ -37,11 +40,14 @@
             <button type="button" class="btn btn-success" @click="logOut">Log out</button>
         </div>
 
-       
+       </div>
      
 
-         <h1 id="leaderBoard">{{message}}</h1>
-        <table class="table table-hover">
+       
+      
+        <table class="table table-hover" id="leaderBoard">
+            <h1 id="leaderBoard">{{headingUserName}}</h1>
+              <h1 id="leaderBoard">Rank Table</h1>
             <thead>
                 <tr>
                     <th>Name</th>
@@ -61,7 +67,29 @@
                 </tr>
             </tbody>
         </table>
+         
+         <div id="secondTable" v-if="showTable2">
+         <div class="showTable2">
+          <table class="table table-hover" id="leaderBoard">
+         <thead>
+                <tr>
+                   <th>#</th>
+                    <th>Host</th>
+                   <th>Guest</th>
+<!--                   <th>Games</th>-->
 
+                </tr>
+            </thead>
+        <tbody>
+            <tr v-for="game in object" id="table2">
+                <td>{{game.numberOfGames}}</td>
+                <td> {{game.Player1}}</td>
+                <td> {{game.player2}}</td>
+            </tr> 
+        </tbody>
+        </table>
+        </div>
+        </div>
 
         
     </div>

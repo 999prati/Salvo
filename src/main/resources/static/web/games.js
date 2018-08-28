@@ -1,7 +1,7 @@
 var app = new Vue({
     el: '#app',
     data: {
-        message: 'PLAYERS SCORE BOARD',
+        message: 'BATTLE SHIP',
         players: "",
         main: {},
         alertDiv: "",
@@ -9,12 +9,17 @@ var app = new Vue({
         heading: "",
         player: "",
         headingUserName: "",
+        games: [],
+        object: [],
+        showTable2:"false",
+
     },
 
     created: function () {
 
         this.dataServer();
         this.getGames();
+        //        this.gameInformation();
     },
 
     methods: {
@@ -34,7 +39,6 @@ var app = new Vue({
                     app.main = json;
                     console.log(main);
 
-
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -52,18 +56,22 @@ var app = new Vue({
                 .then((response) => response.json())
                 .then(function (data) {
                     console.log(data)
+                 
                     app.games = data;
-
+                     
+//                    app.games = app.games.game;
+                  app.gameInformation();
 
                     if (app.games.player != null) {
                         app.logged = true;
-                        app.headingUserName = app.games.player.player_email;
-
-
+                        app.showTable2 = true;
+                        app.player = app.games.player;
+                        app.headingUserName = 'WELCOME:'+ '  '+ app.games.player.player_email;
+                        
                     } else {
                         app.logged = false;
+                        app.showTable2 = false;
                     }
-
 
                 })
         },
@@ -82,20 +90,21 @@ var app = new Vue({
                     },
                     body: 'userName=' + user + '&password=' + password,
 
-
                 })
                 .then(r => {
                     if (r.status == 200) {
-//                        location.reload();
                         this.alertDiv = false;
                         this.logged = true;
                         this.heading = true;
+                        this.showTable2 = true;
                         app.getGames();
                         app.dataServer();
+                        
 
                     } else {
                         this.alertDiv = true;
                         this.logged = false;
+                         this.showTable2 = false;
                     }
                     console.log(r)
                 })
@@ -116,16 +125,18 @@ var app = new Vue({
                     if (r.status == 200) {
                         this.alertDiv = false;
                         this.logged = false;
+                        this.showTable2 = false;
                         app.getGames()
                     } else {
                         this.alertDiv = false;
                         this.logged = true;
+                        this.showTable2 = true;
                     }
                     console.log(r)
                 })
                 .catch(r => console.log(r))
         },
-        
+
         signUp: function () {
             let user = document.getElementById("inputEmail").value;
             let password = document.getElementById("inputPassword").value;
@@ -142,13 +153,35 @@ var app = new Vue({
                 .then(r => {
                     if (r.status == 201) {
                         this.logged = true;
+                          this.showTable2 = true;
                         app.logIn();
                     } else {
                         this.alertDiv = true;
+                          this.showTable2 = false;
                     }
                     console.log(r)
                 })
                 .catch(r => console.log(r))
+        },
+
+        gameInformation: function () {
+            var container = [];
+            for (var i = 0; i < this.games.game.length; i++) {
+                var gameNumber = this.games.game[i].id;
+                var gamePlayer1 = app.games.game[i].gamePlayers[0].player.player_email;
+                if (this.games.game[i].gamePlayers[1] != null) {
+                    var gamePlayer2 = app.games.game[i].gamePlayers[1].player.player_email;
+                } else {
+                    var gamePlayer2 = "JOIN TO PLAY"
+                }
+                var object = {
+                    numberOfGames: gameNumber,
+                    Player1: gamePlayer1,
+                    player2: gamePlayer2,
+                }
+                container.push(object);
+            }
+            app.object = container;
         },
     }
 })

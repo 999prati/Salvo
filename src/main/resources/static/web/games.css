@@ -18,3 +18,37 @@ table{
 .form-signin{
   margin-top: auto;   
 }
+#leaderBoard{
+    width: 60%;
+   margin-left: 20%;
+    background-color:rgba(0,2,5,0.5);
+    color: aliceblue;
+ font-family: 'Yeon Sung', cursive;
+  
+}
+#bodyColor{
+    background-image: url("Style/battelShip.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+   font-family: 'Yeon Sung', cursive;
+
+}
+#logIn{
+    margin-left: 40%;
+    margin-bottom:5%;
+}
+
+.flex1{
+    display: flex;
+    justify-content:space-between;
+}
+
+#logOUT{
+    margin-left: 11%;
+}
+#leaderBoard2{
+   font-family: 'Ewert', cursive;
+    color: aliceblue;
+    text-align: center;
+}

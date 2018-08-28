@@ -1,8 +1,9 @@
 td,
 th {
-    border: solid blue 1px;
-    height: 30px;
-    width: 30px;
+    border: solid green 1px;
+    height: 40px;
+    width: 40px;
+     background-color:rgba(0,6,0,0.5);
 }
 
 .location {
@@ -12,7 +13,7 @@ th {
 }
 
 .location1 {
-    background: blue;
+    background: green;
 }
 
 .location2 {
@@ -26,6 +27,7 @@ th {
     display: flex;
     flex-flow: row;
     justify-content: space-around;
+    margin-top:5%;
 }
 
 .TurnNumber {
@@ -37,4 +39,16 @@ th {
     background-color: darkred;
     background-image: url(Style/hitPhoto.jpg);
     background-size: contain;
+}
+
+#bodyColor{
+    background-image: url("Style/battelShip.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    font-family: 'Yeon Sung', cursive;
+    color: aliceblue;
+}
+#back{
+    background-color:rgba(0,6,0,0.5);
 }
