@@ -7,7 +7,7 @@ var app = new Vue({
         player1: "",
         player2: "",
         main: {},
-        shipLocations:[],
+        shipLocations: [],
     },
     created: function () {
         this.findTheId();
@@ -30,10 +30,10 @@ var app = new Vue({
                     console.log(main);
 
 
-                    for (var i = 0; i < main.ships.length; i++) {
-                        for (var j = 0; j < main.ships[i].locations.length; j++) {
-                            document.getElementById(main.ships[i].locations[j]).setAttribute("class", "location");
-                            app.shipLocations.push(main.ships[i].locations[j]);
+                    for (var i = 0; i < main.gamesObject.ships.length; i++) {
+                        for (var j = 0; j < main.gamesObject.ships[i].locations.length; j++) {
+                            document.getElementById(main.gamesObject.ships[i].locations[j]).setAttribute("class", "location");
+                            app.shipLocations.push(main.gamesObject.ships[i].locations[j]);
 
                         }
                     }
@@ -54,11 +54,11 @@ var app = new Vue({
         },
 
         findTheUser: function () {
-            for (var i = 0; i < this.main.games.gamePlayers.length; i++) {
-                if (this.id == this.main.games.gamePlayers[i].id) {
-                    var player1 = this.main.games.gamePlayers[i].player.player_email;
+            for (var i = 0; i < this.main.gamesObject.games.gamePlayers.length; i++) {
+                if (this.id == this.main.gamesObject.games.gamePlayers[i].id) {
+                    var player1 = this.main.gamesObject.games.gamePlayers[i].player.player_email;
                 } else {
-                    var player2 = this.main.games.gamePlayers[i].player.player_email;
+                    var player2 = this.main.gamesObject.games.gamePlayers[i].player.player_email;
 
                 }
                 this.player1 = player1 + "(you)";
@@ -67,9 +67,9 @@ var app = new Vue({
         },
 
         findTheSalvo: function () {
-            for (var i = 0; i < this.main.salvo.length; i++) {
-                for (var j = 0; j < this.main.salvo[i].locations.length; j++) {
-                    document.getElementById('S' + this.main.salvo[i].locations[j]).setAttribute("class", "location1");
+            for (var i = 0; i < this.main.gamesObject.salvo.length; i++) {
+                for (var j = 0; j < this.main.gamesObject.salvo[i].locations.length; j++) {
+                    document.getElementById('S' + this.main.gamesObject.salvo[i].locations[j]).setAttribute("class", "location1");
                 }
             }
         },
@@ -78,10 +78,10 @@ var app = new Vue({
 
             console.log(this.shipLocations);
 
-            for (var i = 0; i < this.main.OtherSalvo.length; i++) {
-                for (var j = 0; j < this.main.OtherSalvo[i].locations.length; j++) {
+            for (var i = 0; i < this.main.gamesObject.OtherSalvo.length; i++) {
+                for (var j = 0; j < this.main.gamesObject.OtherSalvo[i].locations.length; j++) {
 
-                    let loc = this.main.OtherSalvo[i].locations[j];
+                    let loc = this.main.gamesObject.OtherSalvo[i].locations[j];
                     let cell = document.getElementById(loc);
 
                     console.log(loc);
@@ -93,12 +93,29 @@ var app = new Vue({
                     } else {
 
                         cell.setAttribute("class", "location2");
-                        cell.innerHTML = this.main.OtherSalvo[i].turn;
+                        cell.innerHTML = this.main.gamesObject.OtherSalvo[i].turn;
 
                     }
                 }
             }
         },
+        logOut: function () {
+            fetch("/api/logout", {
+                credentials: 'include',
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+
+            })
+            
+            location.reload();
+            
+            
+            
+        },
+
 
     }
 })

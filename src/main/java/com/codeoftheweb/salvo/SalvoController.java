@@ -37,7 +37,7 @@ public class SalvoController {
 
 
 
-    @RequestMapping("/games")
+    @RequestMapping(path="/games", method =  RequestMethod.POST)
     private Map<String, Object> AO(Authentication authentication) {
         Map<String, Object> dto = new LinkedHashMap<>();
         if (authentication != null) {
@@ -73,6 +73,7 @@ public class SalvoController {
             playerRepository.save(new Player(userName, password));
             return new ResponseEntity<>("Named added", HttpStatus.CREATED);
         }
+
     }
 
 
@@ -86,27 +87,38 @@ public class SalvoController {
     }
 
     @RequestMapping("/game_view/{id}")
-    public Map<String, Object> findGamePlayerID (@PathVariable Long id) {
+    public ResponseEntity< Map<String, Object>> findGamePlayerID (@PathVariable Long id, Authentication authentication) {
         GamePlayer gamePlayer = gamePlayerRepository.findOne(id);
         GamePlayer otherPlayer = getOtherPlayer(gamePlayer);
+        Player player = gamePlayer.getPlayer();
+        Player currentUser = playerRepository.findByUserName(authentication.getName());
 
-        Map<String, Object> objectMap = new HashMap<>();
-        objectMap.put("games", makeGameDTO(gamePlayer.getGame()));
-        objectMap.put("ships", gamePlayer.getShips().stream()
-                .map(ship -> makeShipDTO(ship))
-                .collect(toList()));
+        if (player.getId() == currentUser.getId()) {
 
-        objectMap.put("salvo", gamePlayer.getSalvoes().stream()
-                .map(salvo -> makeSalvoDTO(salvo))
-                .collect(toList()));
 
-        objectMap.put("OtherSalvo", otherPlayer.getSalvoes().stream()
-                .map(salvo -> makeSalvoDTO(salvo))
-                .collect(toList()));
-        return objectMap;
+            Map<String, Object> objectMap = new HashMap<>();
+            objectMap.put("games", makeGameDTO(gamePlayer.getGame()));
+            objectMap.put("ships", gamePlayer.getShips().stream()
+                    .map(ship -> makeShipDTO(ship))
+                    .collect(toList()));
 
+            objectMap.put("salvo", gamePlayer.getSalvoes().stream()
+                    .map(salvo -> makeSalvoDTO(salvo))
+                    .collect(toList()));
+
+            objectMap.put("OtherSalvo", otherPlayer.getSalvoes().stream()
+                    .map(salvo -> makeSalvoDTO(salvo))
+                    .collect(toList()));
+            return new ResponseEntity<>(makeMap("gamesObject",objectMap), HttpStatus.CREATED);
+        } else {
+            return new ResponseEntity<>(makeMap("error","logIn"), HttpStatus.UNAUTHORIZED);
+        }
     }
-
+    private Map<String, Object> makeMap(String key, Object value) {
+        Map<String, Object> map = new HashMap<>();
+        map.put(key, value);
+        return map;
+    }
     @RequestMapping("/leaderboard")
     public List<Object> getLeaderboard() {
         List<Object> list = new ArrayList<>();
@@ -202,7 +214,5 @@ public class SalvoController {
                dto.put("scores",player.getScore());
                return dto;
     }
-
-
 
 }

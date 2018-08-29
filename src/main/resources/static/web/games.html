@@ -7,47 +7,47 @@
     <title>Salvo!!</title>
     <link rel="stylesheet" href="games.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-   <link href="https://fonts.googleapis.com/css?family=Ewert" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Yeon+Sung" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Ewert" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Yeon+Sung" rel="stylesheet">
 </head>
 
 <body id="bodyColor">
     <div id="app">
-          <h1 id="leaderBoard2">{{message}}</h1>
-        
+        <h1 id="leaderBoard2">{{message}}</h1>
+
         <div id="logIn">
-        <div class="alert" v-if='alertDiv'>User or Password is wrong or already in use</div>
-         
-        <div class="form-signin" v-if='logged == false'>
+            <div class="alert" v-if='alertDiv'>User or Password is wrong or already in use</div>
 
-            <label for="inputEmail" class="sr-only">Email address</label>
-            
-            <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required="" autofocus="">
-            
-            <label for="inputPassword" class="sr-only">Password</label>
-            
-            <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
-            
-           
-            <button id="logIN" type="button" class="btn btn-success" @click="logIn">Log in</button>
+            <div class="form-signin" v-if='logged == false'>
 
-            <button id="logOUT" type="button" class="btn btn-success" @click="signUp">Sign up</button>
-           
+                <label for="inputEmail" class="sr-only">Email address</label>
+
+                <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required="" autofocus="">
+
+                <label for="inputPassword" class="sr-only">Password</label>
+
+                <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
+
+
+                <button id="logIN" type="button" class="btn btn-success" @click="logIn">Log in</button>
+
+                <button id="logOUT" type="button" class="btn btn-success" @click="signUp">Sign up</button>
+
+            </div>
+
+            <div v-if='logged'>
+                <div class="logged">logged in</div>
+                <button type="button" class="btn btn-success" @click="logOut">Log out</button>
+            </div>
+
         </div>
 
-        <div v-if='logged'>
-            <div class="logged">logged in</div>
-            <button type="button" class="btn btn-success" @click="logOut">Log out</button>
-        </div>
 
-       </div>
-     
 
-       
-      
+
         <table class="table table-hover" id="leaderBoard">
             <h1 id="leaderBoard">{{headingUserName}}</h1>
-              <h1 id="leaderBoard">Rank Table</h1>
+            <h1 id="leaderBoard">Rank Table</h1>
             <thead>
                 <tr>
                     <th>Name</th>
@@ -67,36 +67,47 @@
                 </tr>
             </tbody>
         </table>
-         
-         <div id="secondTable" v-if="showTable2">
-         <div class="showTable2">
-          <table class="table table-hover" id="leaderBoard">
-         <thead>
-                <tr>
-                   <th>#</th>
-                    <th>Host</th>
-                   <th>Guest</th>
-<!--                   <th>Games</th>-->
 
-                </tr>
-            </thead>
-        <tbody>
-            <tr v-for="game in object" id="table2">
-                <td>{{game.numberOfGames}}</td>
-                <td> {{game.Player1}}</td>
-                <td> {{game.player2}}</td>
-            </tr> 
-        </tbody>
-        </table>
-        </div>
+        <div id="secondTable" v-if="showTable2">
+            <div class="showTable2">
+                <table class="table table-hover" id="leaderBoard">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Host</th>
+                            <th>Guest</th>
+                            <th>status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="game in object" id="table2">
+                            <td>{{game.numberOfGames}}</td>
+                            <td> {{game.Player1}}</td>
+                            <td> {{game.player2}}</td>
+                            <td>
+                                <span v-if="game.Player1 == player.player_email">
+                                <a type="button" class="btn btn-success" :href="'/web/game.html?gp='+ game.gpId1">{{game.showGame}}</a>
+                                </span>
+                                <span v-if="game.player2 == player.player_email">
+                                <a type="button" class="btn btn-success" :href="'/web/game.html?gp='+ game.gpId2">{{game.showGame}}</a>
+                                </span>
+                                <span v-if="game.player2 == 'JOIN TO PLAY'">
+                                    <a type="button" class="btn btn-success">JOIN</a>
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
-        
+
     </div>
-    
+
     <script src="https://code.jquery.com/jquery-2.2.0.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="games.js"></script>
 </body>
+
 </html>

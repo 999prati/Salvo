@@ -11,7 +11,7 @@ var app = new Vue({
         headingUserName: "",
         games: [],
         object: [],
-        showTable2:"false",
+        showTable2: "false",
 
     },
 
@@ -19,6 +19,8 @@ var app = new Vue({
 
         this.dataServer();
         this.getGames();
+        this.returnGames();
+        
         //        this.gameInformation();
     },
 
@@ -56,18 +58,18 @@ var app = new Vue({
                 .then((response) => response.json())
                 .then(function (data) {
                     console.log(data)
-                 
+
                     app.games = data;
-                     
-//                    app.games = app.games.game;
-                  app.gameInformation();
+
+                    //                    app.games = app.games.game;
+                    app.gameInformation();
 
                     if (app.games.player != null) {
                         app.logged = true;
                         app.showTable2 = true;
                         app.player = app.games.player;
-                        app.headingUserName = 'WELCOME:'+ '  '+ app.games.player.player_email;
-                        
+                        app.headingUserName = 'WELCOME:' + '  ' + app.games.player.player_email;
+
                     } else {
                         app.logged = false;
                         app.showTable2 = false;
@@ -99,12 +101,12 @@ var app = new Vue({
                         this.showTable2 = true;
                         app.getGames();
                         app.dataServer();
-                        
+
 
                     } else {
                         this.alertDiv = true;
                         this.logged = false;
-                         this.showTable2 = false;
+                        this.showTable2 = false;
                     }
                     console.log(r)
                 })
@@ -153,11 +155,11 @@ var app = new Vue({
                 .then(r => {
                     if (r.status == 201) {
                         this.logged = true;
-                          this.showTable2 = true;
+                        this.showTable2 = true;
                         app.logIn();
                     } else {
                         this.alertDiv = true;
-                          this.showTable2 = false;
+                        this.showTable2 = false;
                     }
                     console.log(r)
                 })
@@ -169,15 +171,32 @@ var app = new Vue({
             for (var i = 0; i < this.games.game.length; i++) {
                 var gameNumber = this.games.game[i].id;
                 var gamePlayer1 = app.games.game[i].gamePlayers[0].player.player_email;
+                var gamePlayer1Id = app.games.game[i].gamePlayers[0].id;
+                
+                var ShowInGame = app.games.player.player_email;
+
                 if (this.games.game[i].gamePlayers[1] != null) {
                     var gamePlayer2 = app.games.game[i].gamePlayers[1].player.player_email;
+                    var gamePlayer2Id = app.games.game[i].gamePlayers[1].id;
                 } else {
                     var gamePlayer2 = "JOIN TO PLAY"
+
                 }
+                if (gamePlayer2 == ShowInGame || gamePlayer1 == ShowInGame) {
+                    var status = "return game"
+                } else if (this.games.game[i].gamePlayers[1] == null) {
+                    var status = "join Game"
+                } else {
+                    var status = "no access"
+                }
+
                 var object = {
                     numberOfGames: gameNumber,
                     Player1: gamePlayer1,
+                    gpId1: gamePlayer1Id,
                     player2: gamePlayer2,
+                    gpId2: gamePlayer2Id,
+                    showGame: status,
                 }
                 container.push(object);
             }
