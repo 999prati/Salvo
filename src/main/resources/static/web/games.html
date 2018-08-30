@@ -38,6 +38,7 @@
             <div v-if='logged'>
                 <div class="logged">logged in</div>
                 <button type="button" class="btn btn-success" @click="logOut">Log out</button>
+                <button type="button" class="btn btn-success" @click="getNewGame">Create New Game</button>
             </div>
 
         </div>
@@ -85,13 +86,13 @@
                             <td> {{game.Player1}}</td>
                             <td> {{game.player2}}</td>
                             <td>
-                                <span v-if="game.Player1 == player.player_email">
+                                <span v-if="game.Player1 == player.player_email ">
                                 <a type="button" class="btn btn-success" :href="'/web/game.html?gp='+ game.gpId1">{{game.showGame}}</a>
                                 </span>
                                 <span v-if="game.player2 == player.player_email">
                                 <a type="button" class="btn btn-success" :href="'/web/game.html?gp='+ game.gpId2">{{game.showGame}}</a>
                                 </span>
-                                <span v-if="game.player2 == 'JOIN TO PLAY'">
+                                <span v-if="game.player2 == 'JOIN TO PLAY' && game.Player1 != player.player_email ">
                                     <a type="button" class="btn btn-success">JOIN</a>
                                 </span>
                             </td>

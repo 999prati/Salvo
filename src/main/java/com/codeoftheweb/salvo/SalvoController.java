@@ -37,7 +37,7 @@ public class SalvoController {
 
 
 
-    @RequestMapping(path="/games", method =  RequestMethod.POST)
+    @RequestMapping(path="/games",method = RequestMethod.GET )
     private Map<String, Object> AO(Authentication authentication) {
         Map<String, Object> dto = new LinkedHashMap<>();
         if (authentication != null) {
@@ -59,7 +59,23 @@ public class SalvoController {
             return dto;
         }
 
-    @RequestMapping(path = "/players", method = RequestMethod.POST)
+        @RequestMapping(path="/games", method = RequestMethod.POST)
+        public ResponseEntity<Map<String, Object>> createUser(Authentication authentication) {
+            if (authentication == null) {
+                return new ResponseEntity<>(makeMap("error","log in"),HttpStatus.UNAUTHORIZED);
+            } else{
+                Game game = gameRepository.save(new Game());
+                GamePlayer gamePlayer = gamePlayerRepository.save(new GamePlayer(game, currentUser(authentication)));
+
+            return new ResponseEntity<>(makeMap("gamePlayerCreated", gamePlayer.getId()), HttpStatus.CREATED);
+        }
+        }
+
+    private Player currentUser (Authentication authentication){
+        return playerRepository.findByUserName(authentication.getName());
+    }
+
+    @RequestMapping(path="/players",method =  RequestMethod.POST)
     public ResponseEntity<Object> getNewPlayer(@RequestParam String userName , String password) {
 
         if (userName.isEmpty()) {
@@ -75,7 +91,6 @@ public class SalvoController {
         }
 
     }
-
 
     public List<Object> getGamesId() {
         return
@@ -119,6 +134,7 @@ public class SalvoController {
         map.put(key, value);
         return map;
     }
+
     @RequestMapping("/leaderboard")
     public List<Object> getLeaderboard() {
         List<Object> list = new ArrayList<>();

@@ -109,13 +109,13 @@ var app = new Vue({
                 },
 
             })
+            .then(function(response){
+                if (response.status == 200) {
+                    location.replace("/web/games.html")
+                }
+            })
             
             location.reload();
-            
-            
-            
         },
-
-
     }
 })

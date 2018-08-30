@@ -19,9 +19,6 @@ var app = new Vue({
 
         this.dataServer();
         this.getGames();
-        this.returnGames();
-        
-        //        this.gameInformation();
     },
 
     methods: {
@@ -61,7 +58,7 @@ var app = new Vue({
 
                     app.games = data;
 
-                    //                    app.games = app.games.game;
+                    //app.games = app.games.game;
                     app.gameInformation();
 
                     if (app.games.player != null) {
@@ -172,7 +169,7 @@ var app = new Vue({
                 var gameNumber = this.games.game[i].id;
                 var gamePlayer1 = app.games.game[i].gamePlayers[0].player.player_email;
                 var gamePlayer1Id = app.games.game[i].gamePlayers[0].id;
-                
+
                 var ShowInGame = app.games.player.player_email;
 
                 if (this.games.game[i].gamePlayers[1] != null) {
@@ -201,6 +198,24 @@ var app = new Vue({
                 container.push(object);
             }
             app.object = container;
+        },
+        getNewGame: function () {
+            fetch("/api/games", {
+                    credentials: 'include',
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+
+                })
+                .then(r => r.json())
+                .then(r => {
+                    if (r.gamePlayerCreated != null) {
+                        window.location.href = ("/web/game.html?gp=" + r.gamePlayerCreated)
+                    }
+                })
+
         },
     }
 })
