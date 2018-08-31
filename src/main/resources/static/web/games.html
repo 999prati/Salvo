@@ -18,7 +18,7 @@
         <div id="logIn">
             <div class="alert" v-if='alertDiv'>User or Password is wrong or already in use</div>
 
-            <div class="form-signin" v-if='logged == false'>
+            <div id="form-signin" v-if='logged == false'>
 
                 <label for="inputEmail" class="sr-only">Email address</label>
 
@@ -28,24 +28,19 @@
 
                 <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
 
+                <button id="logIN" type="button" class="btn btn-warning" @click="logIn">Log in</button>
 
-                <button id="logIN" type="button" class="btn btn-success" @click="logIn">Log in</button>
-
-                <button id="logOUT" type="button" class="btn btn-success" @click="signUp">Sign up</button>
+                <button id="logOUT" type="button" class="btn btn-warning" @click="signUp">Sign up</button>
 
             </div>
 
             <div v-if='logged'>
                 <div class="logged">logged in</div>
-                <button type="button" class="btn btn-success" @click="logOut">Log out</button>
-                <button type="button" class="btn btn-success" @click="getNewGame">Create New Game</button>
+                <button type="button" class="btn btn-warning" @click="logOut">Log out</button>
+                <button type="button" class="btn btn-warning" @click="getNewGame">Create New Game</button>
             </div>
 
         </div>
-
-
-
-
         <table class="table table-hover" id="leaderBoard">
             <h1 id="leaderBoard">{{headingUserName}}</h1>
             <h1 id="leaderBoard">Rank Table</h1>
@@ -92,8 +87,9 @@
                                 <span v-if="game.player2 == player.player_email">
                                 <a type="button" class="btn btn-success" :href="'/web/game.html?gp='+ game.gpId2">{{game.showGame}}</a>
                                 </span>
+                                
                                 <span v-if="game.player2 == 'JOIN TO PLAY' && game.Player1 != player.player_email ">
-                                    <a type="button" class="btn btn-success">JOIN</a>
+                                    <a type="button" class="btn btn-success" @click="joinGames(game.numberOfGames)">JOIN</a>
                                 </span>
                             </td>
                         </tr>
@@ -101,8 +97,6 @@
                 </table>
             </div>
         </div>
-
-
     </div>
 
     <script src="https://code.jquery.com/jquery-2.2.0.js"></script>
@@ -110,5 +104,4 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="games.js"></script>
 </body>
-
 </html>

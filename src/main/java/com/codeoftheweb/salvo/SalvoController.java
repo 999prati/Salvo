@@ -1,5 +1,6 @@
 package com.codeoftheweb.salvo;
 
+import jdk.nashorn.internal.runtime.AllocationStrategy;
 import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,6 +10,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import sun.security.util.Password;
 
+import javax.xml.stream.Location;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -71,6 +73,28 @@ public class SalvoController {
         }
         }
 
+        @RequestMapping(path="game/{id}/players" , method = RequestMethod.POST)
+        public ResponseEntity<Map<String,Object>> joinGame(@PathVariable long id, Authentication authentication){
+
+        Player currentUser = playerRepository.findByUserName(authentication.getName());
+        Game game = gameRepository.findOne(id);
+
+            if(currentUser == null){
+                return new ResponseEntity<>(makeMap("error", "Username already exists"), HttpStatus.UNAUTHORIZED);
+            }
+            if(game == null){
+                return new ResponseEntity<>(makeMap("error","No such game"),HttpStatus.FORBIDDEN);
+            }
+
+            if(game.getGameplayers().size() > 1){
+                  return new ResponseEntity<>(makeMap("error","Game is Full"),HttpStatus.FORBIDDEN);
+            }
+
+            GamePlayer gamePlayer = new GamePlayer(game,currentUser);
+            gamePlayerRepository.save(gamePlayer);
+            return new ResponseEntity<>(makeMap("gpId", gamePlayer.getId()),HttpStatus.CREATED);
+    }
+
     private Player currentUser (Authentication authentication){
         return playerRepository.findByUserName(authentication.getName());
     }
@@ -91,6 +115,19 @@ public class SalvoController {
         }
 
     }
+
+//    @RequestMapping(path="/games/players/{gamePlayerId}/ships",method = RequestMethod.GET)
+//    public ResponseEntity<List> getShips(@RequestParam String id , Authentication authentication){
+//        Ship ship = ShipRepository.findOne(getShips(id));
+//        Player currentUser = playerRepository.findByUserName(authentication.getName());
+//
+//        if(currentUser == null){
+//            return new ResponseEntity<>(makeMap("error", "Username already exists"), HttpStatus.UNAUTHORIZED);
+//        }
+//
+//    }
+
+
 
     public List<Object> getGamesId() {
         return

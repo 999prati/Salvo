@@ -3,8 +3,11 @@ th {
     border: solid green 1px;
     height: 40px;
     width: 40px;
-     background-color:rgba(0,6,0,0.5);
+/*     background-color:rgba(0,6,0,0.5);*/
+    background-image: linear-gradient(to bottom right,orange,rgba(0,6,0,0.5));
+   
 }
+
 
 .location {
     background: green;
@@ -51,4 +54,10 @@ th {
 }
 #back{
     background-color:rgba(0,6,0,0.5);
+}
+
+
+
+#numberText{
+    text-align:center;
 }

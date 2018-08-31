@@ -1,54 +1,60 @@
-table{
- border: solid blue 1px;
+table {
+    border: solid blue 1px;
 }
 
-#inputEmail{
-    width:30%;
+#inputEmail {
+    width: 30%;
 }
 
-#inputPassword{
-     width:30%;
-    margin-top:1%;
+#inputPassword {
+    width: 30%;
+    margin-top: 1%;
 }
 
-#leaderBoard{
+#leaderBoard {
     text-align: center;
 }
 
-.form-signin{
-  margin-top: auto;   
+.form-signin {
+    margin-top: auto;
 }
-#leaderBoard{
+
+#leaderBoard {
     width: 60%;
-   margin-left: 20%;
-    background-color:rgba(0,2,5,0.5);
+    margin-left: 20%;
+/*    background-color: rgba(0, 2, 5, 0.5);*/
+     background-image: linear-gradient(to bottom right,orange,rgba(0,6,0,0.5));
     color: aliceblue;
- font-family: 'Yeon Sung', cursive;
-  
+    font-family: 'Yeon Sung', cursive;
+   
+
 }
-#bodyColor{
+
+#bodyColor {
     background-image: url("Style/battelShip.jpg");
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
-   font-family: 'Yeon Sung', cursive;
+    font-family: 'Yeon Sung', cursive;
 
 }
-#logIn{
+
+#logIn {
     margin-left: 40%;
-    margin-bottom:5%;
+    margin-bottom: 5%;
 }
 
-.flex1{
+.flex1 {
     display: flex;
-    justify-content:space-between;
+    justify-content: space-between;
 }
 
-#logOUT{
+#logOUT {
     margin-left: 11%;
 }
-#leaderBoard2{
-   font-family: 'Ewert', cursive;
+
+#leaderBoard2 {
+    font-family: 'Ewert', cursive;
     color: aliceblue;
     text-align: center;
 }

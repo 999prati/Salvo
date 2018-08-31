@@ -13,29 +13,28 @@
    
     <div id="app">
        <button type="button" class="btn btn-success" @click="logOut" >Log out</button>
+       <button type="button" class="btn btn-success" @click="backButton" >back to menu</button>
         <div id="flex">
         <div id="flex1">
            <div id="back">
             <h1>{{player1}}</h1>
             </div>
+            
+            
         <table>
-
             <tr>
                 <th></th>
-                <th v-for="n in 10">
+                <th v-for="n in 10" id="numberText">
                     {{n}}
                 </th>
             </tr>
-
             <tr v-for="n in 10">
-                <td>{{String.fromCharCode(64+n)}}</td>
-                <td v-for="x in 10" :id="String.fromCharCode(64+n) + x">{{String.fromCharCode(64+n)}}{{x}}</td>
+                <td id="numberText">{{String.fromCharCode(64+n)}}</td>
+                <td v-for="x in 10" :id="String.fromCharCode(64+n) + x"></td>
             </tr>
 
         </table>
         </div>
-        
-        
         
         <div id="flex2">
         <div id="back">
@@ -45,14 +44,15 @@
 
             <tr>
                 <th></th>
-                <th v-for="n in 10">
+                <th v-for="n in 10" id="numberText">
                     {{n}}
                 </th>
             </tr>
 
             <tr v-for="n in 10">
-                <td>{{String.fromCharCode(64+n)}}</td>
-                <td v-for="x in 10" :id="'S'+String.fromCharCode(64+n) + x">{{String.fromCharCode(64+n)}}{{x}}</td>
+                <td id="numberText">{{String.fromCharCode(64+n)}}</td>
+                <td v-for="x in 10" :id="'S'+String.fromCharCode(64+n) + x"></td>
+<!--                 <td v-for="x in 10" :id="'S'+String.fromCharCode(64+n) + x">{{String.fromCharCode(64+n)}}{{x}}</td>-->
             </tr>
 
         </table>

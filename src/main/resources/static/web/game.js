@@ -16,7 +16,7 @@ var app = new Vue({
 
     methods: {
         dataServer: function (id) {
-            fetch("/api/game_view/" + id, {
+            fetch("/api/game_view/"+id, {
                     method: "GET",
                     creatential: "include",
                 })
@@ -117,5 +117,8 @@ var app = new Vue({
             
             location.reload();
         },
+        backButton: function(){
+            location.replace("/web/games.html")
+        }
     }
 })

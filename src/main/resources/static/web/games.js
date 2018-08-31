@@ -14,9 +14,7 @@ var app = new Vue({
         showTable2: "false",
 
     },
-
     created: function () {
-
         this.dataServer();
         this.getGames();
     },
@@ -44,7 +42,6 @@ var app = new Vue({
 
                 })
         },
-
 
         getGames: function () {
             let url = '/api/games';
@@ -207,7 +204,6 @@ var app = new Vue({
                         'Accept': 'application/json',
                         'Content-Type': 'application/x-www-form-urlencoded'
                     },
-
                 })
                 .then(r => r.json())
                 .then(r => {
@@ -215,7 +211,22 @@ var app = new Vue({
                         window.location.href = ("/web/game.html?gp=" + r.gamePlayerCreated)
                     }
                 })
-
         },
-    }
+        
+        joinGames: function(id){
+            fetch("/api/game/"+id+"/players", {
+                    credentials: 'include',
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                })
+                .then(r => r.json())
+                .then(r => {
+                        window.location.href = ("/web/game.html?gp=" + r.gpId)
+
+                })
+        }
+    },
 })
