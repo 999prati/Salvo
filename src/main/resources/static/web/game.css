@@ -1,12 +1,12 @@
 td,
 th {
+    position: relative;
     border: solid green 1px;
     height: 40px;
     width: 40px;
-/*     background-color:rgba(0,6,0,0.5);*/
-    background-image: linear-gradient(to bottom right,orange,rgba(0,6,0,0.5));
-   
+    background-image: linear-gradient(to bottom right, orange, rgba(0, 6, 0, 0.5));
 }
+
 
 
 .location {
@@ -17,20 +17,22 @@ th {
 
 .location1 {
     background: green;
+    background-image: url(Style/monster.jpg);
+    background-size: contain;
 }
 
 .location2 {
     background: yellow;
     background-image: url(Style/miss.png);
     background-size: contain;
-    
+
 }
 
 #flex {
     display: flex;
     flex-flow: row;
     justify-content: space-around;
-    margin-top:5%;
+    margin-top: 5%;
 }
 
 .TurnNumber {
@@ -44,7 +46,7 @@ th {
     background-size: contain;
 }
 
-#bodyColor{
+#bodyColor {
     background-image: url("Style/battelShip.jpg");
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -52,12 +54,69 @@ th {
     font-family: 'Yeon Sung', cursive;
     color: aliceblue;
 }
-#back{
-    background-color:rgba(0,6,0,0.5);
+
+#back {
+    background-color: rgba(0, 6, 0, 0.5);
+}
+
+#numberText {
+    text-align: center;
+}
+
+.aircraftCarrier1 {
+    width: 120px;
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    z-index: 2;
+    height: 40px;
+}
+
+.aircraftCarrier2 {
+    width: 160px;
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    z-index: 2;
+    height: 40px;
+}
+
+.aircraftCarrier3 {
+    width: 200px;
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    z-index: 2;
+    height: 40px;
+
+}
+
+.aircraftCarrier4 {
+    width: 80px;
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    z-index: 2;
+    height: 40px;
+
+}
+
+.aircraftCarrier5 {
+    width: 120px;
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    z-index: 2;
+    height: 40px;
+}
+
+.vertical {
+    transform: rotate(90deg);
+    transform-origin: bottom left;
 }
 
 
-
-#numberText{
-    text-align:center;
+.mystyle{
+   background-image: url(Style/hitSalvo.jpg);
+      background-size: contain;
 }

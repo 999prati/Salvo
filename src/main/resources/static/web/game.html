@@ -6,60 +6,89 @@
     <title>Ship Locations!</title>
     <link rel="stylesheet" href="game.css">
     <link href="https://fonts.googleapis.com/css?family=Yeon+Sung" rel="stylesheet">
-     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 
 <body id="bodyColor">
-   
-    <div id="app">
-       <button type="button" class="btn btn-success" @click="logOut" >Log out</button>
-       <button type="button" class="btn btn-success" @click="backButton" >back to menu</button>
-        <div id="flex">
-        <div id="flex1">
-           <div id="back">
-            <h1>{{player1}}</h1>
-            </div>
-            
-            
-        <table>
-            <tr>
-                <th></th>
-                <th v-for="n in 10" id="numberText">
-                    {{n}}
-                </th>
-            </tr>
-            <tr v-for="n in 10">
-                <td id="numberText">{{String.fromCharCode(64+n)}}</td>
-                <td v-for="x in 10" :id="String.fromCharCode(64+n) + x"></td>
-            </tr>
 
-        </table>
+    <div id="app">
+        <button type="button" class="btn btn-success" @click="logOut">Log out</button>
+        <button type="button" class="btn btn-success" @click="backButton">back to menu</button>
+        <button type="button" class="btn btn-success" @click="postShips()">play</button>
+
+
+
+
+        <div id="flex">
+            <div v-if="placeShipSalvo" id="flex1">
+                <div id="back">
+                    <h1>{{player1}}</h1>
+                </div>
+                <table id="div1" ondrop="drop(event)" ondragover="allowDrop(event)" class="box6 flex dropzone">
+                    <tr>
+                        <th></th>
+                        <th v-for="n in 10" id="numberText" class="noDrop">
+                            {{n}}
+                        </th>
+                    </tr>
+                    <tr v-for="n in 10">
+                        <td id="numberText">{{String.fromCharCode(64+n)}}</td>
+                        <td v-for="x in 10" :id="String.fromCharCode(64+n) + x" class="cell"></td>
+                    </tr>
+                </table>
+            </div>
+            <div v-if="shipsContainer" id="ships-container" >
+                <div id="dragg1">
+                    <img type="button" onclick="rotateToVert('drag1')" class="aircraftCarrier1 horizontal" alt="aircraft_carrier" src="Style/dragShips.jpg" id="drag1" draggable="true" ondragstart="drag(event)">
+                </div>
+
+                <div id="dragg2">
+                    <img type="button" onclick="rotateToVert('drag2')" class="aircraftCarrier2 horizontal" alt="aircraft_carrier" src="Style/dragShips.jpg" id="drag2" draggable="true" ondragstart="drag(event)">
+                </div>
+
+
+                <div id="dragg3">
+                    <img type="button" onclick="rotateToVert('drag3')" class="aircraftCarrier3 horizontal" alt="aircraft_carrier" src="Style/dragShips.jpg" id="drag3" draggable="true" ondragstart="drag(event)">
+                </div>
+
+                <div id="dragg4">
+                    <img type="button" onclick="rotateToVert('drag4')" class="aircraftCarrier4 horizontal" alt="aircraft_carrier" src="Style/dragShips.jpg" id="drag4" draggable="true" ondragstart="drag(event)">
+                </div>
+
+                <div id="dragg5">
+                    <img type="button" onclick="rotateToVert('drag5')" class="aircraftCarrier5 horizontal" alt="aircraft_carrier" src="Style/dragShips.jpg" id="drag5" draggable="true" ondragstart="drag(event)">
+                </div>
+            </div>
+
+
+            <div v-if="secondGrid" id="flex2">
+                 <button type="button" class="btn btn-success" @click="postSalvos">postSalvo</button>
+
+                <div id="back">
+                    <h1>{{player2}}</h1>
+                </div>
+                <table>
+                    <tr>
+                        <th></th>
+                        <th v-for="n in 10" id="numberText">
+                            {{n}}
+                        </th>
+                    </tr>
+                    <tr v-for="n in 10">
+                        <td id="numberText">{{String.fromCharCode(64+n)}}</td>
+                        <td v-for="x in 10" :id="'s'+String.fromCharCode(64+n) + x" @click="shotShips('s'+String.fromCharCode(64+n) + x)">{{String.fromCharCode(64+n) + x}}</td>
+                    </tr>
+                </table>
+            </div>
         </div>
         
-        <div id="flex2">
-        <div id="back">
-        <h1>{{player2}}</h1>
-        </div>
-        <table>
-
-            <tr>
-                <th></th>
-                <th v-for="n in 10" id="numberText">
-                    {{n}}
-                </th>
-            </tr>
-
-            <tr v-for="n in 10">
-                <td id="numberText">{{String.fromCharCode(64+n)}}</td>
-                <td v-for="x in 10" :id="'S'+String.fromCharCode(64+n) + x"></td>
-<!--                 <td v-for="x in 10" :id="'S'+String.fromCharCode(64+n) + x">{{String.fromCharCode(64+n)}}{{x}}</td>-->
-            </tr>
-
-        </table>
-        </div>
-        </div>
+        
+        
+        
+        
     </div>
-      <script src="https://code.jquery.com/jquery-2.2.0.js"></script>
+
+    <script src="https://code.jquery.com/jquery-2.2.0.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="game.js"></script>

@@ -196,27 +196,27 @@ public class SalvoApplication extends SpringBootServletInitializer {
 			shipRepository.save(ship27);
 
 
-			Salvo salvo1 = new Salvo("1", gamePlayer1, locations1);
-			Salvo salvo2 = new Salvo("1", gamePlayer2, locations2);
-			Salvo salvo3 = new Salvo("2", gamePlayer1, locations3);
-			Salvo salvo4 = new Salvo("2", gamePlayer2, locations4);
-			Salvo salvo5 = new Salvo("1", gamePlayer3, locations5);
-			Salvo salvo6 = new Salvo("1", gamePlayer4, locations6);
-			Salvo salvo7 = new Salvo("2", gamePlayer3, locations7);
-			Salvo salvo8 = new Salvo("2", gamePlayer4, locations8);
-			Salvo salvo9 = new Salvo("1", gamePlayer5, locations9);
-			Salvo salvo10 = new Salvo("1", gamePlayer6, locations10);
-			Salvo salvo11 = new Salvo("2", gamePlayer5, locations11);
-			Salvo salvo12 = new Salvo("2", gamePlayer6, locations12);
-			Salvo salvo13 = new Salvo("1", gamePlayer7, locations13);
-			Salvo salvo14 = new Salvo("1", gamePlayer8, locations14);
-			Salvo salvo15 = new Salvo("2", gamePlayer7, locations15);
-			Salvo salvo16 = new Salvo("2", gamePlayer8, locations16);
-			Salvo salvo17 = new Salvo("1", gamePlayer9, locations17);
-			Salvo salvo18 = new Salvo("1", gamePlayer10, locations18);
-			Salvo salvo19 = new Salvo("2", gamePlayer9, locations19);
-			Salvo salvo20 = new Salvo("2", gamePlayer10, locations20);
-			Salvo salvo22 = new Salvo("3", gamePlayer10, locations22);
+			Salvo salvo1 = new Salvo(1, gamePlayer1, locations1);
+			Salvo salvo2 = new Salvo(1, gamePlayer2, locations2);
+			Salvo salvo3 = new Salvo(2, gamePlayer1, locations3);
+			Salvo salvo4 = new Salvo(2, gamePlayer2, locations4);
+			Salvo salvo5 = new Salvo(1, gamePlayer3, locations5);
+			Salvo salvo6 = new Salvo(1, gamePlayer4, locations6);
+			Salvo salvo7 = new Salvo(2, gamePlayer3, locations7);
+			Salvo salvo8 = new Salvo(2, gamePlayer4, locations8);
+			Salvo salvo9 = new Salvo(1, gamePlayer5, locations9);
+			Salvo salvo10 = new Salvo(1, gamePlayer6, locations10);
+			Salvo salvo11 = new Salvo(2, gamePlayer5, locations11);
+			Salvo salvo12 = new Salvo(2, gamePlayer6, locations12);
+			Salvo salvo13 = new Salvo(1, gamePlayer7, locations13);
+			Salvo salvo14 = new Salvo(1, gamePlayer8, locations14);
+			Salvo salvo15 = new Salvo(2, gamePlayer7, locations15);
+			Salvo salvo16 = new Salvo(2, gamePlayer8, locations16);
+			Salvo salvo17 = new Salvo(1, gamePlayer9, locations17);
+			Salvo salvo18 = new Salvo(1, gamePlayer10, locations18);
+			Salvo salvo19 = new Salvo(2, gamePlayer9, locations19);
+			Salvo salvo20 = new Salvo(2, gamePlayer10, locations20);
+			Salvo salvo22 = new Salvo(3, gamePlayer10, locations22);
 
 
 			salvoRepository.save(salvo1);

@@ -12,23 +12,23 @@ public class Salvo {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private long id;
 
-    private  String  turn_number;
+    private  Integer turnNumber;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="gameplayer_id")
     private GamePlayer gameplayer;
 
 
     @ElementCollection
-    @Column(name="Location")
-    private List<String> Locations = new ArrayList<>();
+//    @Column(name="Location")
+    private List<String> locations = new ArrayList<>();
 
    public Salvo() { }
 
 
-    public Salvo(String turn_number, GamePlayer gameplayer, List<String> locations) {
-        this.turn_number = turn_number;
+    public Salvo(Integer turnNumber, GamePlayer gameplayer, List<String> locations) {
+        this.turnNumber = turnNumber;
         this.gameplayer = gameplayer;
-        this.Locations = locations;
+        this.locations = locations;
     }
 
     public long getId() {
@@ -39,12 +39,12 @@ public class Salvo {
         this.id = id;
     }
 
-    public String getTurn_number() {
-        return turn_number;
+    public Integer getTurnNumber() {
+        return turnNumber;
     }
 
-    public void setTurn_number(String turn_number) {
-        this.turn_number = turn_number;
+    public void setTurnNumber(Integer turnNumber) {
+        this.turnNumber = turnNumber;
     }
 
     public GamePlayer getGameplayer() {
@@ -56,10 +56,10 @@ public class Salvo {
     }
 
     public List<String> getLocations() {
-        return Locations;
+        return locations;
     }
 
     public void setLocations(List<String> locations) {
-        Locations = locations;
+        this.locations = locations;
     }
 }

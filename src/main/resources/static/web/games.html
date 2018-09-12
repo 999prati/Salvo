@@ -81,7 +81,7 @@
                             <td> {{game.Player1}}</td>
                             <td> {{game.player2}}</td>
                             <td>
-                                <span v-if="game.Player1 == player.player_email ">
+                                <span v-if="game.Player1 == player.player_email" v-show="hideSalvo == true">
                                 <a type="button" class="btn btn-success" :href="'/web/game.html?gp='+ game.gpId1">{{game.showGame}}</a>
                                 </span>
                                 <span v-if="game.player2 == player.player_email">
@@ -103,5 +103,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="games.js"></script>
+<!--    <script src="game.js"></script>-->
 </body>
 </html>

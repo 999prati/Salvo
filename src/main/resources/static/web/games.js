@@ -5,13 +5,16 @@ var app = new Vue({
         players: "",
         main: {},
         alertDiv: "",
-        logged: "false",
+        logged: false,
         heading: "",
         player: "",
         headingUserName: "",
         games: [],
         object: [],
-        showTable2: "false",
+        showTable2: false,
+        hideSalvo: false,
+        placingsalvo: false,
+        placeShipSalvo: false,
 
     },
     created: function () {
@@ -57,9 +60,9 @@ var app = new Vue({
 
                     //app.games = app.games.game;
                     app.gameInformation();
-
                     if (app.games.player != null) {
                         app.logged = true;
+                        app.hideSalvo = true;
                         app.showTable2 = true;
                         app.player = app.games.player;
                         app.headingUserName = 'WELCOME:' + '  ' + app.games.player.player_email;
@@ -95,8 +98,6 @@ var app = new Vue({
                         this.showTable2 = true;
                         app.getGames();
                         app.dataServer();
-
-
                     } else {
                         this.alertDiv = true;
                         this.logged = false;
@@ -150,6 +151,7 @@ var app = new Vue({
                     if (r.status == 201) {
                         this.logged = true;
                         this.showTable2 = true;
+                        alert("new user created");
                         app.logIn();
                     } else {
                         this.alertDiv = true;
@@ -178,6 +180,7 @@ var app = new Vue({
                 }
                 if (gamePlayer2 == ShowInGame || gamePlayer1 == ShowInGame) {
                     var status = "return game"
+
                 } else if (this.games.game[i].gamePlayers[1] == null) {
                     var status = "join Game"
                 } else {
@@ -209,12 +212,17 @@ var app = new Vue({
                 .then(r => {
                     if (r.gamePlayerCreated != null) {
                         window.location.href = ("/web/game.html?gp=" + r.gamePlayerCreated)
+                       
+                    app.placeShipSalvo = true;
+
                     }
+                    
                 })
+                .catch(e => console.log(e))
         },
-        
-        joinGames: function(id){
-            fetch("/api/game/"+id+"/players", {
+
+        joinGames: function (id) {
+            fetch("/api/game/" + id + "/players", {
                     credentials: 'include',
                     method: 'POST',
                     headers: {
@@ -224,9 +232,8 @@ var app = new Vue({
                 })
                 .then(r => r.json())
                 .then(r => {
-                        window.location.href = ("/web/game.html?gp=" + r.gpId)
-
+                    window.location.href = ("/web/game.html?gp=" + r.gpId)
                 })
-        }
-    },
+        },
+    }
 })
